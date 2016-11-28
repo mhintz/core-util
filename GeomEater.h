@@ -27,4 +27,10 @@ private:
 	uint32_t mBaseNumVertices;
 };
 
+namespace gl {
+
+void draw(GeomEaterRef const & eater) { draw(eater->getMesh()); }
+
+} // namespace gl
+
 } // namespace cinder
