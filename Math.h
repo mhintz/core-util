@@ -18,14 +18,13 @@ using glm::mat3;
 using glm::mat4;
 using glm::quat;
 
-// Implementation of these functions was taken from code on canvas: https://github.com/codeoncanvas/coc-core
-
+// Implementation of the following functions was taken from code on canvas: https://github.com/codeoncanvas/coc-core
 float min(float x, float y);
 float max(float x, float y);
 float clamp(float x, float min = 0, float max = 1);
 float abs(float x);
 float map(float val, float inMin, float inMax, float outMin, float outMax, bool clamp = false);
 float lerp(float a, float b, float amount);
-
 vec2 perpendicular(vec2 vec);
 float angleClockwise(vec2 direction);
+// End of CoC-sourced functions
