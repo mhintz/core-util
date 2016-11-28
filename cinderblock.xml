@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cinder>
+<block
+  name="ZHdK-shared"
+  id=""
+  author=""
+  summary=""
+  license=""
+  url=""
+  git=""
+  version=""
+  library=""
+  >
+  
+  <headerPattern>src/*.h</headerPattern>
+  <sourcePattern>src/*.cpp</sourcePattern>
+  
+  <platform os="msw">
+    <includePath system="false">src</includePath>
+  </platform>
+
+</block>
+</cinder>

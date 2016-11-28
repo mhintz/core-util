@@ -1,0 +1,7 @@
+# Mac OS X cruft
+*.pbxuser
+*.user
+project.xcworkspace
+xcuserdata/
+.DS_Store
+xcode/build
