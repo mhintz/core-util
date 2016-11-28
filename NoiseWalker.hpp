@@ -3,6 +3,8 @@
 #include "cinder/Rand.h"
 #include "cinder/Perlin.h"
 
+#include "Math.h"
+
 class NoiseWalker;
 typedef std::unique_ptr<NoiseWalker> NoiseWalkerBox;
 typedef std::shared_ptr<NoiseWalker> NoiseWalkerRef;
@@ -13,11 +15,11 @@ static const ci::Perlin noiseSampler = ci::Perlin();
 
 class NoiseWalker {
 public:
-	NoiseWalker() : mPosition(randVec2() * noiseInitialOffset), mNormalStep(randVec2()) {
+	NoiseWalker() : mPosition(ci::randVec2() * noiseInitialOffset), mNormalStep(ci::randVec2()) {
 		mAdjustedStep = noiseStepSizeDefault * mNormalStep;
 	}
 
-	NoiseWalker(float stepSize) : mPosition(randVec2() * noiseInitialOffset), mNormalStep(randVec2()) {
+	NoiseWalker(float stepSize) : mPosition(ci::randVec2() * noiseInitialOffset), mNormalStep(ci::randVec2()) {
 		mAdjustedStep = stepSize * mNormalStep;
 	}
 

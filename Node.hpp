@@ -1,16 +1,6 @@
 #pragma once
 
-#include "cinder/CinderMath.h"
-#include "cinder/Matrix.h"
-#include "cinder/Vector.h"
-#include "cinder/Quaternion.h"
-
-#include "glm/gtx/transform.hpp"
-#include "glm/gtc/quaternion.hpp"
-#include "glm/gtx/quaternion.hpp"
-#include "glm/gtx/euler_angles.hpp"
-
-using namespace ci;
+#include "Math.h"
 
 class Node {
 public:

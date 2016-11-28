@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <cinder>
 <block
-  name="ZHdK-shared"
+  name="core-util"
   id=""
   author=""
   summary=""
@@ -12,7 +12,17 @@
   library=""
   >
   
+  <header>GeomEater.h</header>
+  <source>GeomEater.cpp</source>
+  <header>Math.h</header>
+  <source>Math.cpp</source>
+  <header>MeshHelpers.h</header>
+  <source>MeshHelpers.cpp</source>
+  <header>Node.hpp</header>
+  <header>NoiseWalker.hpp</header>
+
   <headerPattern>src/*.h</headerPattern>
+  <headerPattern>src/*.hpp</headerPattern>
   <sourcePattern>src/*.cpp</sourcePattern>
   
   <platform os="msw">
