@@ -1,5 +1,7 @@
 #include "Math.h"
 
+// Implementation of the following functions was taken from code on canvas: https://github.com/codeoncanvas/coc-core
+
 float min(float x, float y) {
 	return ci::math<float>::min(x, y);
 }

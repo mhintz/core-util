@@ -18,6 +18,8 @@ using glm::mat3;
 using glm::mat4;
 using glm::quat;
 
+// Implementation of these functions was taken from code on canvas: https://github.com/codeoncanvas/coc-core
+
 float min(float x, float y);
 float max(float x, float y);
 float clamp(float x, float min = 0, float max = 1);
