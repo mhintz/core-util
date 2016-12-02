@@ -4,7 +4,7 @@
 
 #include "cinder/Color.h"
 
-#include "Math.h"
+#include "CoreMath.h"
 
 template <typename T>
 class Gradient {

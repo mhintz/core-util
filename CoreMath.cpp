@@ -1,4 +1,4 @@
-#include "Math.h"
+#include "CoreMath.h"
 
 // Implementation of the following functions was taken from code on canvas: https://github.com/codeoncanvas/coc-core
 /* Copyright (c) 2016 Code on Canvas Pty Ltd, http://CodeOnCanvas.cc

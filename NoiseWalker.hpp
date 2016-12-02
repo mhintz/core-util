@@ -3,7 +3,7 @@
 #include "cinder/Rand.h"
 #include "cinder/Perlin.h"
 
-#include "Math.h"
+#include "CoreMath.h"
 
 class NoiseWalker;
 typedef std::unique_ptr<NoiseWalker> NoiseWalkerBox;

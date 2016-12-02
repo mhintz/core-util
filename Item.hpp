@@ -2,7 +2,7 @@
 
 #include "cinder/gl/gl.h"
 
-#include "Math.h"
+#include "CoreMath.h"
 #include "Node.hpp"
 
 class Item;
