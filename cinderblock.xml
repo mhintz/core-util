@@ -16,8 +16,8 @@
   <source>CoreMath.cpp</source>
   <header>GeomEater.h</header>
   <source>GeomEater.cpp</source>
-  <source>Gradient.hpp</source>
-  <source>Item.hpp</source>
+  <header>Gradient.hpp</header>
+  <header>Item.hpp</header>
   <header>MeshHelpers.h</header>
   <source>MeshHelpers.cpp</source>
   <header>Node.hpp</header>
