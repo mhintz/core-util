@@ -2,7 +2,7 @@
 <cinder>
 <block
   name="core-util"
-  id=""
+  id="com.markhz.coreutil"
   author=""
   summary=""
   license=""
@@ -25,13 +25,6 @@
   <header>Node.hpp</header>
   <header>NoiseWalker.hpp</header>
 
-  <headerPattern>src/*.h</headerPattern>
-  <headerPattern>src/*.hpp</headerPattern>
-  <sourcePattern>src/*.cpp</sourcePattern>
-  
-  <platform os="msw">
-    <includePath system="false">src</includePath>
-  </platform>
-
 </block>
+<template>templates/template.xml</template>
 </cinder>
