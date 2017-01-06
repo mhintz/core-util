@@ -68,21 +68,22 @@ gl::VboMeshRef makeNormalizedCubeSphere() {
 	vector<vec3> normals;
 	vector<int> faces;
 	vector<uint> indices;
+	uint subdivisions = 12;
 
 	// positive X
-	addNormalizedFace(vec3(1, -1, 1), vec3(0, 0, -2), vec3(0, 2, 0), 24, 0, & positions, & normals, & faces, & indices);
+	addNormalizedFace(vec3(1, -1, 1), vec3(0, 0, -2), vec3(0, 2, 0), subdivisions, 0, & positions, & normals, & faces, & indices);
 	// negative X
-	addNormalizedFace(vec3(-1, -1, -1), vec3(0, 0, 2), vec3(0, 2, 0), 24, 1, & positions, & normals, & faces, & indices);
+	addNormalizedFace(vec3(-1, -1, -1), vec3(0, 0, 2), vec3(0, 2, 0), subdivisions, 1, & positions, & normals, & faces, & indices);
 
 	// positive Y
-	addNormalizedFace(vec3(-1, 1, 1), vec3(2, 0, 0), vec3(0, 0, -2), 24, 2, & positions, & normals, & faces, & indices);
+	addNormalizedFace(vec3(-1, 1, 1), vec3(2, 0, 0), vec3(0, 0, -2), subdivisions, 2, & positions, & normals, & faces, & indices);
 	// negative Y
-	addNormalizedFace(vec3(-1, -1, -1), vec3(2, 0, 0), vec3(0, 0, 2), 24, 3, & positions, & normals, & faces, & indices);
+	addNormalizedFace(vec3(-1, -1, -1), vec3(2, 0, 0), vec3(0, 0, 2), subdivisions, 3, & positions, & normals, & faces, & indices);
 
 	// positive Z
-	addNormalizedFace(vec3(-1, -1, 1), vec3(2, 0, 0), vec3(0, 2, 0), 24, 4, & positions, & normals, & faces, & indices);
+	addNormalizedFace(vec3(-1, -1, 1), vec3(2, 0, 0), vec3(0, 2, 0), subdivisions, 4, & positions, & normals, & faces, & indices);
 	// negative Z
-	addNormalizedFace(vec3(1, -1, -1), vec3(-2, 0, 0), vec3(0, 2, 0), 24, 5, & positions, & normals, & faces, & indices);
+	addNormalizedFace(vec3(1, -1, -1), vec3(-2, 0, 0), vec3(0, 2, 0), subdivisions, 5, & positions, & normals, & faces, & indices);
 
 	auto posBufLayout = geom::BufferLayout({ geom::AttribInfo(geom::POSITION, geom::FLOAT, 3, 0, 0) });
 	auto posBuf = gl::Vbo::create(GL_ARRAY_BUFFER, positions.size() * sizeof(vec3), positions.data(), GL_STATIC_DRAW);
