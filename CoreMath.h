@@ -20,6 +20,9 @@ using glm::mat3;
 using glm::mat4;
 using glm::quat;
 
+#define M_TWO_PI 2.0 * M_PI
+#define M_HALF_PI M_PI_2 
+
 // Implementation of the following functions was taken from code on canvas: https://github.com/codeoncanvas/coc-core
 float min(float x, float y);
 float max(float x, float y);
