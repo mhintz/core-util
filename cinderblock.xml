@@ -16,6 +16,8 @@
   <source>CoreMath.cpp</source>
   <header>DoubleFbo.h</header>
   <source>DoubleFbo.cpp</source>
+  <header>FboCubeMapLayered.h</header>
+  <source>FboCubeMapLayered.cpp</source>
   <header>GeomEater.h</header>
   <source>GeomEater.cpp</source>
   <header>Gradient.hpp</header>
