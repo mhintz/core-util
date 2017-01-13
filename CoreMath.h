@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "glm/glm.hpp"
 #include "glm/gtc/quaternion.hpp"
 #include "glm/gtx/quaternion.hpp"
@@ -33,3 +35,5 @@ float lerp(float a, float b, float amount);
 vec2 perpendicular(vec2 vec);
 float angleClockwise(vec2 direction);
 // End of CoC-sourced functions
+
+template <typename T> size_t vectorByteSize(std::vector<T> const & vec) { return sizeof(T) * vec.size(); }
