@@ -18,6 +18,7 @@ class FboCubeMapLayered {
 	int getHeight() { return mHeight; }
 	ci::gl::TextureCubeMapRef getColorTex() { return mBackingColor; }
 	ci::gl::TextureCubeMapRef getDepthTex() { return mBackingDepth; }
+	ci::gl::UboRef generateCameraMatrixBuffer();
 
 	void bind();
 	void unbind();

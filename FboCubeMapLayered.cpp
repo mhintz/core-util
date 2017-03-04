@@ -35,6 +35,22 @@ FboCubeMapLayered::~FboCubeMapLayered() {
 	glDeleteFramebuffers(1, & mFboHandle);
 }
 
+ci::gl::UboRef FboCubeMapLayered::generateCameraMatrixBuffer() {
+	static vec3 const viewDirs[] = { vec3(1, 0, 0), vec3(-1, 0, 0), vec3(0, 1, 0), vec3(0, -1, 0), vec3(0, 0, 1), vec3(0, 0, -1) };
+	mat4 faceCams[6];
+	for (int idx = 0; idx < 6; idx++) {
+		CameraPersp faceCam(mWidth, mHeight, 90.0f, 0.5, 5.0);
+		faceCam.lookAt(vec3(0), viewDirs[idx]);
+		mat4 result;
+		if (idx != 2 && idx != 3) {
+			result *= glm::rotate((float) M_PI, vec3(0, 0, 1));
+		}
+		result *= faceCam.getProjectionMatrix() * faceCam.getViewMatrix();
+		faceCams[idx] = result;
+	}
+	return gl::Ubo::create(sizeof(mat4) * 6, faceCams);
+}
+
 void FboCubeMapLayered::bind() {
 	glBindFramebuffer(GL_FRAMEBUFFER, mFboHandle);
 }
