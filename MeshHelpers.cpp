@@ -101,9 +101,11 @@ void genCubeMapFace(vec2 ul, vec2 lr, vec2 tul, vec2 tlr, vec3 tu, vec3 tv, vec3
 	positions->emplace_back(lr.x, ul.y); // upper-right
 	texCoords->emplace_back(tlr.x, tul.y);
 	cubeMapTexCoords->emplace_back(normalize(tw + tu + tv));
+
 	positions->emplace_back(ul.x, ul.y); // upper-left
 	texCoords->emplace_back(tul.x, tul.y);
 	cubeMapTexCoords->emplace_back(normalize(tw + tv));
+
 	positions->emplace_back(lr.x, lr.y); // lower-right
 	texCoords->emplace_back(tlr.x, tlr.y);
 	cubeMapTexCoords->emplace_back(normalize(tw + tu));
@@ -111,9 +113,11 @@ void genCubeMapFace(vec2 ul, vec2 lr, vec2 tul, vec2 tlr, vec3 tu, vec3 tv, vec3
 	positions->emplace_back(ul.x, lr.y); // lower-left
 	texCoords->emplace_back(tul.x, tlr.y);
 	cubeMapTexCoords->emplace_back(normalize(tw));
+
 	positions->emplace_back(lr.x, lr.y); // lower-right
 	texCoords->emplace_back(tlr.x, tlr.y);
 	cubeMapTexCoords->emplace_back(normalize(tw + tu));
+
 	positions->emplace_back(ul.x, ul.y); // upper-left
 	texCoords->emplace_back(tul.x, tul.y);
 	cubeMapTexCoords->emplace_back(normalize(tw + tv));
@@ -147,6 +151,16 @@ gl::VboMeshRef makeCubeMapRowLayout(uint32_t side) {
 	genCubeMapFace(vec2(side * 5, 0), vec2(side * 6, side), vec2(texSide * 5, 1.0), vec2(texSide * 6, 0.0), vec3(-2, 0, 0), vec3(0, 2, 0), vec3(1, -1, -1), & positions, & texCoords, & cubeMapTexCoords);
 	faceIndex.insert(faceIndex.end(), 6, 5);
 
+	vector<vec2> cubeSidePositions;
+	for (int idx = 0; idx < 6; idx++) {
+		cubeSidePositions.emplace_back(vec2(side, 0));
+		cubeSidePositions.emplace_back(vec2(0, 0));
+		cubeSidePositions.emplace_back(vec2(side, side));
+		cubeSidePositions.emplace_back(vec2(0, side));
+		cubeSidePositions.emplace_back(vec2(side, side));
+		cubeSidePositions.emplace_back(vec2(0, 0));
+	}
+
 	auto posBuf = gl::Vbo::create(GL_ARRAY_BUFFER, positions, GL_STREAM_DRAW);
 	auto posBufLayout = geom::BufferLayout({ geom::AttribInfo(geom::POSITION, 2, 0, 0) });
 	auto flatTexBuf = gl::Vbo::create(GL_ARRAY_BUFFER, texCoords, GL_STREAM_DRAW);
@@ -155,6 +169,8 @@ gl::VboMeshRef makeCubeMapRowLayout(uint32_t side) {
 	auto cubeMapTexBufLayout = geom::BufferLayout({ geom::AttribInfo(geom::TEX_COORD_1, 3, 0, 0) });
 	auto faceIdxBuf = gl::Vbo::create(GL_ARRAY_BUFFER, faceIndex, GL_STREAM_DRAW);
 	auto faceIdxBufLayout = geom::BufferLayout({ geom::AttribInfo(geom::CUSTOM_0, geom::INTEGER, 1, 0, 0) });
+	auto cubeSidePosBuf = gl::Vbo::create(GL_ARRAY_BUFFER, cubeSidePositions, GL_STREAM_DRAW);
+	auto cubeSidePosBufLayout = geom::BufferLayout({ geom::AttribInfo(geom::CUSTOM_1, 2, 0, 0) });
 
-	return gl::VboMesh::create(positions.size(), GL_TRIANGLES, { { posBufLayout, posBuf }, { flatTexBufLayout, flatTexBuf }, { cubeMapTexBufLayout, cubeMapTexBuf }, { faceIdxBufLayout, faceIdxBuf } });
+	return gl::VboMesh::create(positions.size(), GL_TRIANGLES, { { posBufLayout, posBuf }, { flatTexBufLayout, flatTexBuf }, { cubeMapTexBufLayout, cubeMapTexBuf }, { faceIdxBufLayout, faceIdxBuf }, { cubeSidePosBufLayout, cubeSidePosBuf } });
 }
