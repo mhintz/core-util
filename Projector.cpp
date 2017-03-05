@@ -109,7 +109,7 @@ void Projector::draw() {
 		gl::ScopedGlslProg scpShader(gl::getStockShader(gl::ShaderDef().color()));
 		gl::ScopedColor scpColor(Color(1.0, 1.0, 1.0));
 
-		mFrustumMesh.draw();
+		gl::draw(mFrustumMesh);
 	}
 }
 
@@ -156,49 +156,31 @@ void Projector::calcPolyline() {
 	vec3 fbr = sideRatio * nbr;
 
 	// Draw the positions into the frustum mesh
-	mFrustumMesh.clear();
-	mFrustumMesh.begin(GL_LINES);
+	mFrustumMesh = PolyLine3();
 
 	// Near rectangle
-	mFrustumMesh.vertex(ntl);
-	mFrustumMesh.vertex(ntr);
+	mFrustumMesh.push_back(ntl);
+	mFrustumMesh.push_back(ntr);
+	mFrustumMesh.push_back(nbr);
+	mFrustumMesh.push_back(nbl);
+	mFrustumMesh.push_back(ntl);
 
-	mFrustumMesh.vertex(ntr);
-	mFrustumMesh.vertex(nbr);
+	// Far rectangle with connections
+	mFrustumMesh.push_back(ftl);
 
-	mFrustumMesh.vertex(nbr);
-	mFrustumMesh.vertex(nbl);
+	mFrustumMesh.push_back(ftr);
+	mFrustumMesh.push_back(ntr);
+	mFrustumMesh.push_back(ftr);
 
-	mFrustumMesh.vertex(nbl);
-	mFrustumMesh.vertex(ntl);
+	mFrustumMesh.push_back(fbr);
+	mFrustumMesh.push_back(nbr);
+	mFrustumMesh.push_back(fbr);
 
-	// Connection lines
-	mFrustumMesh.vertex(ntl);
-	mFrustumMesh.vertex(ftl);
+	mFrustumMesh.push_back(fbl);
+	mFrustumMesh.push_back(nbl);
+	mFrustumMesh.push_back(fbl);
 
-	mFrustumMesh.vertex(ntr);
-	mFrustumMesh.vertex(ftr);
-
-	mFrustumMesh.vertex(nbr);
-	mFrustumMesh.vertex(fbr);
-
-	mFrustumMesh.vertex(nbl);
-	mFrustumMesh.vertex(fbl);
-
-	// Far rectangle
-	mFrustumMesh.vertex(ftl);
-	mFrustumMesh.vertex(ftr);
-
-	mFrustumMesh.vertex(ftr);
-	mFrustumMesh.vertex(fbr);
-
-	mFrustumMesh.vertex(fbr);
-	mFrustumMesh.vertex(fbl);
-
-	mFrustumMesh.vertex(fbl);
-	mFrustumMesh.vertex(ftl);
-
-	mFrustumMesh.end();
+	mFrustumMesh.push_back(ftl);
 
 	mPolylineCached = true;
 }
