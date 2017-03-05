@@ -24,7 +24,7 @@ public:
 	Projector(float horFOV, float vertFOV, float baseAngle)
 	: mHorFOV(horFOV), mVertFOV(vertFOV), mVertBaseAngle(baseAngle) {}
 
-	void setColor(ci::Color col);
+	Projector & setColor(ci::Color col) { mColor = col; return *this; }
 
 	// View-changing functions
 	Projector & moveTo(vec3 pos);

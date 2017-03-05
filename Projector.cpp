@@ -16,10 +16,6 @@ float Projector::horizontalAngleFromDims(float zDistance, float imgWidth) {
 	return 2.f * atan2(imgWidth / 2.f, zDistance);
 }
 
-void Projector::setColor(Color col) {
-	mColor = col;
-}
-
 Projector & Projector::moveTo(vec3 projPos) {
 	mPosition = projPos;
 	mViewMatrixCached = false;
