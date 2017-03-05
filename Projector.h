@@ -69,7 +69,8 @@ private:
 	bool mPolylineCached = false;
 
 	// 3D position and orientation properties of the Projector's lens, here abstracted as a point in space
-	vec3 mPosition = vec3(0, 0, 1); // Position
+	// Position is cylindrical coordinates - x is distance from center, y is y-position, z is rotation angle around center
+	vec3 mPosition = vec3(1, 0, 0);
 	bool mUpsideDown = false;
 	float mYRotation = 0; // rotation around the Projector's y-axis, to account for offsets from center
 
