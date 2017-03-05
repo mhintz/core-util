@@ -26,6 +26,8 @@
   <source>MeshHelpers.cpp</source>
   <header>Node.hpp</header>
   <header>NoiseWalker.hpp</header>
+  <header>Projector.h</header>
+  <source>Projector.cpp</source>
 
 </block>
 <template>templates/template.xml</template>
