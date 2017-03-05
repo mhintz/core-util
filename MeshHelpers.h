@@ -13,4 +13,6 @@ ci::gl::VboMeshRef bmeshToVBOMesh(bmesh::MeshRef theMesh);
 
 ci::gl::VboMeshRef makeNormalizedCubeSphere();
 
-ci::gl::VboMeshRef makeCubeMapRowLayout(uint32_t side);
+ci::gl::VboMeshRef makeCubeMapToRowLayoutMesh(uint32_t side);
+
+ci::gl::VboMeshRef makeRowLayoutToCubeMapMesh(uint32_t side);
