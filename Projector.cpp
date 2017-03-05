@@ -77,6 +77,10 @@ mat4 const & Projector::getProjectionMatrix() {
 	return mProjectionMatrix;
 }
 
+vec3 Projector::getWorldPos() const {
+	return vec3(cos(mPosition.z) * mPosition.x, mPosition.y, sin(mPosition.z) * mPosition.x);
+}
+
 void Projector::draw() {
 	gl::ScopedModelMatrix scpMat;
 	gl::multModelMatrix(glm::inverse(getViewMatrix()));
@@ -116,7 +120,7 @@ void Projector::draw() {
 void Projector::calcViewMatrix() {
 	// mPosition is considered a triple of (distance from center, y-position in space, angle about center)
 	// The projector is always "looking at" the nearest y-axis point
-	vec3 projWorldPosition(cos(mPosition.z) * mPosition.x, mPosition.y, sin(mPosition.z) * mPosition.x);
+	vec3 projWorldPosition = getWorldPos();
 	mViewMatrix = glm::eulerAngleY(mYRotation) * glm::lookAt(projWorldPosition, vec3(0, mPosition.y, 0), mUpsideDown ? vec3(0, -1, 0) : vec3(0, 1, 0));
 	mViewMatrixCached = true;
 }

@@ -46,8 +46,11 @@ public:
 	float getVertFOV() const { return mVertFOV; }
 	float getVertBaseAngle() const { return mVertBaseAngle; }
 	vec3 getPos() const { return mPosition; }
+	vec3 getWorldPos() const;
+	vec3 getTarget() const { return vec3(0, mPosition.y, 0); }
 	bool getUpsideDown() const { return mUpsideDown; }
 	float getYRotation() const { return mYRotation; }
+	ci::Color getColor() const { return mColor; }
 
 	void draw();
 
