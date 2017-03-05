@@ -156,5 +156,5 @@ gl::VboMeshRef makeCubeMapRowLayout(uint32_t side) {
 	auto faceIdxBuf = gl::Vbo::create(GL_ARRAY_BUFFER, faceIndex, GL_STREAM_DRAW);
 	auto faceIdxBufLayout = geom::BufferLayout({ geom::AttribInfo(geom::CUSTOM_0, geom::INTEGER, 1, 0, 0) });
 
-	return gl::VboMesh::create(positions.size(), GL_TRIANGLES, { { posBufLayout, posBuf }, { cubeMapTexBufLayout, cubeMapTexBuf }, { faceIdxBufLayout, faceIdxBuf } });
+	return gl::VboMesh::create(positions.size(), GL_TRIANGLES, { { posBufLayout, posBuf }, { flatTexBufLayout, flatTexBuf }, { cubeMapTexBufLayout, cubeMapTexBuf }, { faceIdxBufLayout, faceIdxBuf } });
 }
