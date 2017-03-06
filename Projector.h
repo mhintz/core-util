@@ -90,6 +90,8 @@ private:
 	ci::Color mColor = ci::Color::white();
 };
 
+typedef std::shared_ptr<Projector> ProjectorRef;
+
 // Returns configuration for an Acer P5515 projector at minimum "zoom" setting
 Projector getAcerP5515MinZoom();
 
