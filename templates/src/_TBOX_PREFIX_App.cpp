@@ -11,23 +11,18 @@ public:
 	static void prepSettings(Settings * settings);
 
 	void setup() override;
-	void mouseDown( MouseEvent event ) override;
 	void keyDown(KeyEvent evt) override;
 	void update() override;
 	void draw() override;
 };
 
 void _TBOX_PREFIX_App::prepSettings(Settings * settings) {
-	settings->setFullScreen();
+	settings->setTitle("_TBOX_PREFIX_");
 	settings->setHighDensityDisplayEnabled();
+	settings->setFullScreen();
 }
 
-void _TBOX_PREFIX_App::setup()
-{
-}
-
-void _TBOX_PREFIX_App::mouseDown( MouseEvent event )
-{
+void _TBOX_PREFIX_App::setup() {
 }
 
 void _TBOX_PREFIX_App::keyDown(KeyEvent evt) {
@@ -36,8 +31,7 @@ void _TBOX_PREFIX_App::keyDown(KeyEvent evt) {
 	}
 }
 
-void _TBOX_PREFIX_App::update()
-{
+void _TBOX_PREFIX_App::update() {
 }
 
 void _TBOX_PREFIX_App::draw()
