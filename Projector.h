@@ -24,6 +24,7 @@ public:
 	Projector(float horFOV, float vertFOV, float baseAngle)
 	: mHorFOV(horFOV), mVertFOV(vertFOV), mVertBaseAngle(baseAngle) {}
 
+	Projector & setId(int id) { mId = id; return *this; }
 	Projector & setColor(ci::Color col) { mColor = col; return *this; }
 
 	// View-changing functions
@@ -50,6 +51,7 @@ public:
 	vec3 getTarget() const { return vec3(0, mPosition.y, 0); }
 	bool getUpsideDown() const { return mUpsideDown; }
 	float getYRotation() const { return mYRotation; }
+	int getId() const { return mId; }
 	ci::Color getColor() const { return mColor; }
 
 	void draw();
@@ -62,6 +64,8 @@ private:
 	void setProjectionMatrixDirty();
 
 	std::array<float, 6> getFrustumDims();
+
+	int mId;
 
 	// Matrix caching system
 	mat4 mViewMatrix;
