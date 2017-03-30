@@ -117,23 +117,25 @@ void genCubeMapFace(vec2 ul, vec2 lr, vec3 tu, vec3 tv, vec3 tw, vector<vec2> * 
 	cubeMapTexCoords->emplace_back(normalize(tw + tv));
 }
 
+// Special configuration for SPARCK
+// (Pretty sure SPARCK expects a rectangle of -X, -Z, +X, +Z, -Y, +Y)
 gl::VboMeshRef makeCubeMapToRowLayoutMesh(uint32_t side) {
 	vector<vec2> positions;
 	vector<vec3> cubeMapTexCoords;
 
 	// Generate six sets of positions and texcoords for drawing the six faces of the cube map
 	// + X
-	genCubeMapFace(vec2(side * 0, 0), vec2(side * 1, side), vec3(0, 0, -2), vec3(0, 2, 0), vec3(1, -1, 1), & positions, & cubeMapTexCoords);
+	genCubeMapFace(vec2(side * 2, 0), vec2(side * 3, side), vec3(0, 0, -2), vec3(0, 2, 0), vec3(1, -1, 1), & positions, & cubeMapTexCoords);
 	// - X
-	genCubeMapFace(vec2(side * 1, 0), vec2(side * 2, side), vec3(0, 0, 2), vec3(0, 2, 0), vec3(-1, -1, -1), & positions, & cubeMapTexCoords);
+	genCubeMapFace(vec2(side * 0, 0), vec2(side * 1, side), vec3(0, 0, 2), vec3(0, 2, 0), vec3(-1, -1, -1), & positions, & cubeMapTexCoords);
 	// + Y
-	genCubeMapFace(vec2(side * 2, 0), vec2(side * 3, side), vec3(2, 0, 0), vec3(0, 0, -2), vec3(-1, 1, 1), & positions, & cubeMapTexCoords);
+	genCubeMapFace(vec2(side * 5, 0), vec2(side * 6, side), vec3(2, 0, 0), vec3(0, 0, -2), vec3(-1, 1, 1), & positions, & cubeMapTexCoords);
 	// - Y
-	genCubeMapFace(vec2(side * 3, 0), vec2(side * 4, side), vec3(2, 0, 0), vec3(0, 0, 2), vec3( -1, -1, -1 ), & positions, & cubeMapTexCoords);
+	genCubeMapFace(vec2(side * 4, 0), vec2(side * 5, side), vec3(2, 0, 0), vec3(0, 0, 2), vec3( -1, -1, -1 ), & positions, & cubeMapTexCoords);
 	// + Z
-	genCubeMapFace(vec2(side * 4, 0), vec2(side * 5, side), vec3(2, 0, 0), vec3(0, 2, 0), vec3(-1, -1, 1), & positions, & cubeMapTexCoords);
+	genCubeMapFace(vec2(side * 3, 0), vec2(side * 4, side), vec3(2, 0, 0), vec3(0, 2, 0), vec3(-1, -1, 1), & positions, & cubeMapTexCoords);
 	// - Z
-	genCubeMapFace(vec2(side * 5, 0), vec2(side * 6, side), vec3(-2, 0, 0), vec3(0, 2, 0), vec3(1, -1, -1), & positions, & cubeMapTexCoords);
+	genCubeMapFace(vec2(side * 1, 0), vec2(side * 2, side), vec3(-2, 0, 0), vec3(0, 2, 0), vec3(1, -1, -1), & positions, & cubeMapTexCoords);
 
 	auto posBufLayout = geom::BufferLayout({ geom::AttribInfo(geom::POSITION, 2, 0, 0) });
 	auto posBuf = gl::Vbo::create(GL_ARRAY_BUFFER, positions, GL_STREAM_DRAW);
@@ -193,6 +195,43 @@ gl::VboMeshRef makeRowLayoutToCubeMapMesh(uint32_t side) {
 	auto posBufLayout = geom::BufferLayout({ geom::AttribInfo(geom::POSITION, 2, 0, 0) });
 	auto posBuf = gl::Vbo::create(GL_ARRAY_BUFFER, positions, GL_STREAM_DRAW);
 	auto texBufLayout = geom::BufferLayout({ geom::AttribInfo(geom::TEX_COORD_0, 2, 0, 0) });
+	auto texBuf = gl::Vbo::create(GL_ARRAY_BUFFER, texCoords, GL_STREAM_DRAW);
+	auto faceIdxBufLayout = geom::BufferLayout({ geom::AttribInfo(geom::CUSTOM_0, geom::INTEGER, 1, 0, 0) });
+	auto faceIdxBuf = gl::Vbo::create(GL_ARRAY_BUFFER, faceIndex, GL_STREAM_DRAW);
+
+	return gl::VboMesh::create(positions.size(), GL_TRIANGLES, { { posBufLayout, posBuf }, { texBufLayout, texBuf }, { faceIdxBufLayout, faceIdxBuf } });
+}
+
+gl::VboMeshRef makeCubeMapFaceMesh() {
+	vector<vec2> positions;
+	vector<vec3> texCoords;
+	vector<int> faceIndex;
+
+	// + X
+	genCubeMapFace(vec2(-1, 1), vec2(1, -1), vec3(0, 0, -2), vec3(0, 2, 0), vec3(1, -1, 1), & positions, & texCoords);
+	faceIndex.insert(faceIndex.end(), 6, 0);
+	// - X
+	genCubeMapFace(vec2(-1, 1), vec2(1, -1), vec3(0, 0, 2), vec3(0, 2, 0), vec3(-1, -1, -1), & positions, & texCoords);
+	faceIndex.insert(faceIndex.end(), 6, 1);
+	// + Y
+	// Both y directions have their cubemap coordinate y-axis flipped from the way the
+	// other cube map coords are set up in makeCubeMapToRowLayoutMesh.
+	// Tbh I don't know exactly why this is necessary, but it is
+	genCubeMapFace(vec2(-1, 1), vec2(1, -1), vec3(2, 0, 0), vec3(0, 0, 2), vec3(-1, -1, -1), & positions, & texCoords);
+	faceIndex.insert(faceIndex.end(), 6, 2);
+	// - Y
+	genCubeMapFace(vec2(-1, 1), vec2(1, -1), vec3(2, 0, 0), vec3(0, 0, -2), vec3( -1, 1, 1 ), & positions, & texCoords);
+	faceIndex.insert(faceIndex.end(), 6, 3);
+	// + Z
+	genCubeMapFace(vec2(-1, 1), vec2(1, -1), vec3(2, 0, 0), vec3(0, 2, 0), vec3(-1, -1, 1), & positions, & texCoords);
+	faceIndex.insert(faceIndex.end(), 6, 4);
+	// - Z
+	genCubeMapFace(vec2(-1, 1), vec2(1, -1), vec3(-2, 0, 0), vec3(0, 2, 0), vec3(1, -1, -1), & positions, & texCoords);
+	faceIndex.insert(faceIndex.end(), 6, 5);
+
+	auto posBufLayout = geom::BufferLayout({ geom::AttribInfo(geom::POSITION, 2, 0, 0) });
+	auto posBuf = gl::Vbo::create(GL_ARRAY_BUFFER, positions, GL_STREAM_DRAW);
+	auto texBufLayout = geom::BufferLayout({ geom::AttribInfo(geom::TEX_COORD_0, 3, 0, 0) });
 	auto texBuf = gl::Vbo::create(GL_ARRAY_BUFFER, texCoords, GL_STREAM_DRAW);
 	auto faceIdxBufLayout = geom::BufferLayout({ geom::AttribInfo(geom::CUSTOM_0, geom::INTEGER, 1, 0, 0) });
 	auto faceIdxBuf = gl::Vbo::create(GL_ARRAY_BUFFER, faceIndex, GL_STREAM_DRAW);
