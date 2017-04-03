@@ -156,7 +156,7 @@ void Projector::calcPolyline() {
 	vec3 fbr = sideRatio * nbr;
 
 	// Draw the positions into the frustum mesh
-	mFrustumMesh = PolyLine3();
+	mFrustumMesh.clear();
 
 	// Near rectangle
 	mFrustumMesh.push_back(ntl);

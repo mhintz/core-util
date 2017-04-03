@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <vector>
 
 #include "cinder/gl/gl.h"
 
@@ -72,7 +73,7 @@ private:
 	bool mViewMatrixCached = false;
 	mat4 mProjectionMatrix;
 	bool mProjectionMatrixCached = false;
-	ci::PolyLine3 mFrustumMesh;
+	std::vector<vec3> mFrustumMesh;
 	bool mPolylineCached = false;
 
 	// 3D position and orientation properties of the Projector's lens, here abstracted as a point in space
