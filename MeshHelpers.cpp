@@ -117,25 +117,35 @@ void genCubeMapFace(vec2 ul, vec2 lr, vec3 tu, vec3 tv, vec3 tw, vector<vec2> * 
 	cubeMapTexCoords->emplace_back(normalize(tw + tv));
 }
 
-// Special configuration for SPARCK
-// (Pretty sure SPARCK expects a rectangle of -X, -Z, +X, +Z, -Y, +Y)
-gl::VboMeshRef makeCubeMapToRowLayoutMesh(uint32_t side) {
+// Special configuration for Martin Fröhlich's SPARCK program
+// (SPARCK expects a rectangle of -X, +Z, +X, -Z, +Y, -Y)
+gl::VboMeshRef makeCubeMapToRowLayoutMesh_SPARCK(uint32_t side) {
 	vector<vec2> positions;
 	vector<vec3> cubeMapTexCoords;
 
+	int place;
 	// Generate six sets of positions and texcoords for drawing the six faces of the cube map
 	// + X
-	genCubeMapFace(vec2(side * 2, 0), vec2(side * 3, side), vec3(0, 0, -2), vec3(0, 2, 0), vec3(1, -1, 1), & positions, & cubeMapTexCoords);
+	place = 2;
+	genCubeMapFace(vec2(side * place, 0), vec2(side * (place + 1), side), vec3(0, 0, -2), vec3(0, 2, 0), vec3(1, -1, 1), & positions, & cubeMapTexCoords);
 	// - X
-	genCubeMapFace(vec2(side * 0, 0), vec2(side * 1, side), vec3(0, 0, 2), vec3(0, 2, 0), vec3(-1, -1, -1), & positions, & cubeMapTexCoords);
+	place = 0;
+	genCubeMapFace(vec2(side * place, 0), vec2(side * (place + 1), side), vec3(0, 0, 2), vec3(0, 2, 0), vec3(-1, -1, -1), & positions, & cubeMapTexCoords);
 	// + Y
-	genCubeMapFace(vec2(side * 5, 0), vec2(side * 6, side), vec3(2, 0, 0), vec3(0, 0, -2), vec3(-1, 1, 1), & positions, & cubeMapTexCoords);
+	place = 4;
+	genCubeMapFace(vec2(side * place, 0), vec2(side * (place + 1), side), vec3(2, 0, 0), vec3(0, 0, -2), vec3(-1, 1, 1), & positions, & cubeMapTexCoords);
 	// - Y
-	genCubeMapFace(vec2(side * 4, 0), vec2(side * 5, side), vec3(2, 0, 0), vec3(0, 0, 2), vec3( -1, -1, -1 ), & positions, & cubeMapTexCoords);
+	place = 5;
+	genCubeMapFace(vec2(side * place, 0), vec2(side * (place + 1), side), vec3(2, 0, 0), vec3(0, 0, 2), vec3( -1, -1, -1 ), & positions, & cubeMapTexCoords);
+	// Note: I think that somewhere in SPARCK the Z-axis is getting swapped.
+	// But frames communicating with it can be fixed by swapping (or not)
+	// the places of the +Z and -Z sides of the cubemap
 	// + Z
-	genCubeMapFace(vec2(side * 3, 0), vec2(side * 4, side), vec3(2, 0, 0), vec3(0, 2, 0), vec3(-1, -1, 1), & positions, & cubeMapTexCoords);
+	place = 1;
+	genCubeMapFace(vec2(side * place, 0), vec2(side * (place + 1), side), vec3(2, 0, 0), vec3(0, 2, 0), vec3(-1, -1, 1), & positions, & cubeMapTexCoords);
 	// - Z
-	genCubeMapFace(vec2(side * 1, 0), vec2(side * 2, side), vec3(-2, 0, 0), vec3(0, 2, 0), vec3(1, -1, -1), & positions, & cubeMapTexCoords);
+	place = 3;
+	genCubeMapFace(vec2(side * place, 0), vec2(side * (place + 1), side), vec3(-2, 0, 0), vec3(0, 2, 0), vec3(1, -1, -1), & positions, & cubeMapTexCoords);
 
 	auto posBufLayout = geom::BufferLayout({ geom::AttribInfo(geom::POSITION, 2, 0, 0) });
 	auto posBuf = gl::Vbo::create(GL_ARRAY_BUFFER, positions, GL_STREAM_DRAW);
