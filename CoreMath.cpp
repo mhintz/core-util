@@ -82,3 +82,13 @@ float angleClockwise(vec2 direction) {
 }
 
 // End of CoC-sourced functions
+
+// maps [-1, 1] to [0, 1]
+float map01(float t) {
+	return (t + 1.0) * 0.5;
+}
+
+// maps [0, 1] to [1, 0]
+float inv(float t) {
+	return 1.0 - t;
+}

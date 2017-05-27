@@ -36,4 +36,9 @@ vec2 perpendicular(vec2 vec);
 float angleClockwise(vec2 direction);
 // End of CoC-sourced functions
 
+// maps [-1, 1] to [0, 1]
+float map01(float t);
+// maps [0, 1] to [1, 0]
+float inv(float t);
+
 template <typename T> size_t vectorByteSize(std::vector<T> const & vec) { return sizeof(T) * vec.size(); }
