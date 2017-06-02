@@ -92,3 +92,7 @@ float map01(float t) {
 float inv(float t) {
 	return 1.0 - t;
 }
+
+vec3 getPointOnSphere(float vertAng, float horAng) {
+	return vec3(sin(vertAng) * cos(horAng), cos(vertAng), sin(vertAng) * sin(horAng));
+}

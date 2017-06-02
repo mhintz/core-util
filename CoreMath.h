@@ -40,5 +40,7 @@ float angleClockwise(vec2 direction);
 float map01(float t);
 // maps [0, 1] to [1, 0]
 float inv(float t);
+// returns a point on the unit sphere corresponding to a vertical angle (relative to the y-axis) and a horizontal angle (rotation around the y-axis in the x-z plane)
+vec3 getPointOnSphere(float vertAng, float horAng);
 
 template <typename T> size_t vectorByteSize(std::vector<T> const & vec) { return sizeof(T) * vec.size(); }
