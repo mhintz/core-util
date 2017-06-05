@@ -96,3 +96,7 @@ float inv(float t) {
 vec3 getPointOnSphere(float vertAng, float horAng) {
 	return vec3(sin(vertAng) * cos(horAng), cos(vertAng), sin(vertAng) * sin(horAng));
 }
+
+double secFromHMS(double hours, double minutes, double seconds) {
+	return hours * 60.0 * 60.0 + minutes * 60.0 + seconds;
+}

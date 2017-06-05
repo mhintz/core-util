@@ -42,5 +42,7 @@ float map01(float t);
 float inv(float t);
 // returns a point on the unit sphere corresponding to a vertical angle (relative to the y-axis) and a horizontal angle (rotation around the y-axis in the x-z plane)
 vec3 getPointOnSphere(float vertAng, float horAng);
+// returns seconds from hours minutes and seconds
+double secFromHMS(double hours, double minutes, double seconds);
 
 template <typename T> size_t vectorByteSize(std::vector<T> const & vec) { return sizeof(T) * vec.size(); }

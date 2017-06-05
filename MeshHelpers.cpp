@@ -260,6 +260,7 @@ int cubeMapDimensionIntFromVec(vec3 dir) {
 // Returns the GLenum corresponding to the cubemap face pointed to by the 3D vector
 GLenum cubeMapFaceFromVec(vec3 dir) {
 	int cmDim = cubeMapDimensionIntFromVec(dir);
+	assert(cmDim == 0 || cmDim == 1 || cmDim == 2);
 
 	// If the max value is 0, then the vector is the zero vector, which is an error
 	// but in this case the function will return GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
@@ -271,6 +272,8 @@ GLenum cubeMapFaceFromVec(vec3 dir) {
 			return glm::sign(dir.y) == 1.0 ? GL_TEXTURE_CUBE_MAP_POSITIVE_Y : GL_TEXTURE_CUBE_MAP_NEGATIVE_Y;
 		case 2:
 			return glm::sign(dir.z) == 1.0 ? GL_TEXTURE_CUBE_MAP_POSITIVE_Z : GL_TEXTURE_CUBE_MAP_NEGATIVE_Z;
+		default:
+			assert(0);
 	}
 
 	// Execution should never reach this point
